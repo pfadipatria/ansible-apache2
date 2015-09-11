@@ -2,3 +2,6 @@
 
 apache2_packages:
   - 'apache2'
+
+# Apache2 default LogLevel
+apache2_log_level: 'warn'
