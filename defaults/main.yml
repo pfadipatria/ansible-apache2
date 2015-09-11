@@ -3,5 +3,26 @@
 apache2_packages:
   - 'apache2'
 
+apache2_mods_enable:
+  - 'access_compat'
+  - 'alias'
+  - 'auth_basic'
+  - 'authn_core'
+  - 'authn_file'
+  - 'authz_core'
+  - 'authz_host'
+  - 'authz_user'
+  - 'autoindex'
+  - 'deflate'
+  - 'dir'
+  - 'env'
+  - 'filter'
+  - 'mime'
+  - 'mpm_event'
+  - 'negotiation'
+  - 'setenvif'
+  - 'ssl'
+  - 'status'
+
 # Apache2 default LogLevel
 apache2_log_level: 'warn'
