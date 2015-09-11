@@ -3,6 +3,10 @@
 - name: Check apache2
   command: /usr/sbin/apache2ctl configtest
 
+- name: Check apache2 and reload
+  command: /usr/sbin/apache2ctl configtest
+  notify: [ 'Reload apache2' ]
+
 - name: Restart apache2
   service:
     name: 'apache2'
