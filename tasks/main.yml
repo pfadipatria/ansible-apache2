@@ -1,0 +1,8 @@
+---
+
+- name: Install apache2-related packages
+  apt:
+    name: '{{ item }}'
+    state: 'latest'
+    install_recommends: false
+  with_items: apache2_packages

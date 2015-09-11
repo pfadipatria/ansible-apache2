@@ -1,0 +1,4 @@
+---
+
+apache2_packages:
+  - 'apache2'
