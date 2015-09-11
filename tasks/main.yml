@@ -6,3 +6,7 @@
     state: 'latest'
     install_recommends: false
   with_items: apache2_packages
+
+- name: Divert apache2.conf
+  command: dpkg-divert --quiet --local --divert /etc/apache2/apache2.conf.dpkg-divert
+           --rename /etc/apache2/apache2.conf creates=/etc/apache2/apache2.conf.dpkg-divert
