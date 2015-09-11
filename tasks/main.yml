@@ -29,3 +29,8 @@
   shell: /usr/sbin/a2enmod --quiet {{ item }}
   with_items: (apache2_mods_enable | difference(apache2_register_enabled_mods.stdout_lines))
   notify: [ 'Check apache2 and reload' ]
+
+- name: Disable apache2 mods
+  shell: /usr/sbin/a2dismod --quiet {{ item }}
+  with_items: (apache2_mods_disable | difference(apache2_mods_disable | difference(apache2_register_enabled_mods.stdout_lines)))
+  notify: [ 'Check apache2 and reload' ]

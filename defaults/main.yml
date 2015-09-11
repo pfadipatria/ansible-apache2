@@ -24,5 +24,7 @@ apache2_mods_enable:
   - 'ssl'
   - 'status'
 
+apache2_mods_disable: []
+
 # Apache2 default LogLevel
 apache2_log_level: 'warn'
