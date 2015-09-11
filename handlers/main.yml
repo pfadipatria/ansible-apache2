@@ -2,3 +2,8 @@
 
 - name: Check apache2
   command: /usr/sbin/apache2ctl configtest
+
+- name: Restart apache2
+  service:
+    name: 'apache2'
+    state: 'restarted'
