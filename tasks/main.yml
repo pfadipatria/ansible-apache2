@@ -28,6 +28,12 @@
     group: 'root'
     mode: '0755'
 
+- name: Delete unused directories
+  file:
+    path: '/etc/apache2/{{ item }}'
+    state: 'absent'
+  with_items: [ 'conf-available', 'conf-enabled' ]
+
 - name: Create custom configurations
   template:
     src: 'etc/apache2/conf.d/{{ item }}.j2'
