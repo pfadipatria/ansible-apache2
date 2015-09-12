@@ -20,19 +20,20 @@
     mode: '0644'
   notify: [ 'Check apache2 and reload' ]
 
-- name: Create custom conf directory
+- name: Create custom directory
   file:
-    path: '/etc/apache2/conf.d'
+    path: '/etc/apache2/{{ item }}'
     state: 'directory'
     owner: 'root'
     group: 'root'
     mode: '0755'
+  with_items: [ 'conf.d', 'vhosts.d' ]
 
 - name: Delete unused directories
   file:
     path: '/etc/apache2/{{ item }}'
     state: 'absent'
-  with_items: [ 'conf-available', 'conf-enabled' ]
+  with_items: [ 'conf-available', 'conf-enabled', 'sites-available', 'sites-enabled' ]
 
 - name: Create custom configurations
   template:
@@ -57,4 +58,15 @@
 - name: Disable apache2 mods
   shell: /usr/sbin/a2dismod --quiet {{ item }}
   with_items: (apache2_mods_disable | difference(apache2_mods_disable | difference(apache2_register_enabled_mods.stdout_lines)))
+  notify: [ 'Check apache2 and reload' ]
+
+- name: Create vhosts
+  template:
+    src: 'etc/apache2/vhosts.d/{{ item.type|d("default") }}.conf.j2'
+    dest: '/etc/apache2/vhosts.d/{{ item.name }}.conf'
+    owner: 'root'
+    group: 'root'
+    mode: '0644'
+  with_items: apache2_vhosts
+  when: apache2_vhosts is defined and apache2_vhosts
   notify: [ 'Check apache2 and reload' ]

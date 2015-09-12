@@ -1,0 +1,16 @@
+{% if item.proxy_pass_ssl|d() %}
+
+{% for src, dest in item.proxy_pass_ssl.items() %}
+    ProxyPass {{ src }} {{ dest }}
+{% endfor %}
+{% endif %}
+{% if item.redirect_ssl|d() %}
+
+{% for redirect in item.redirect_ssl %}
+{% if redirect.regex|d() %}
+    Redirect {{ redirect.code|d(apache2_redirect_code) }} {{ redirect.src }} {{ redirect.dest }}
+{% else %}
+    RedirectMatch {{ redirect.code|d(apache2_redirect_code) }} {{ redirect.src }} {{ redirect.dest }}
+{% endif %}
+{% endfor %}
+{% endif %}

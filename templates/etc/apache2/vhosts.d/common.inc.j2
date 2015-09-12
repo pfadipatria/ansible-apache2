@@ -1,0 +1,22 @@
+{% set apache2_tpl_document_root  = item.document_root | d("/var/www/${HOST}${DOMAIN}") %}
+{% if item.index|d() %}
+    DirectoryIndex {{ item.index }}
+
+{% endif %}
+{% if item.keepalive|d() %}
+    KeepAlive {{ item.keepalive }}
+
+{% endif %}
+    DocumentRoot {{ apache2_tpl_document_root }}
+
+    <Directory {{ apache2_tpl_document_root }}>
+        Options {{ item.document_root_options | default(['FollowSymLinks']) | join(" ") }}
+        Require all granted
+        AllowOverride {{ item.document_root_allow_override | default("all") }}
+    </Directory>
+{% if item.error_pages|d() %}
+
+{% for error, page in item.error_pages.items() %}
+    ErrorDocument {{ error }} {{ page }}
+{% endfor %}
+{% endif %}

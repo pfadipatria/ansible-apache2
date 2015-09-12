@@ -1,0 +1,51 @@
+{% set apache2_tpl_listen     = item.listen     | default(["[::]:80"])     | join(" ")     %}
+{% set apache2_tpl_listen_ssl = item.listen_ssl | default(["[::]:443"])    | join(" ")     %}
+{% set apache2_tpl_access_log = item.access_log | default("${HOST}${DOMAIN}_access")    %}
+{% set apache2_tpl_error_log  = item.error_log  | default("${HOST}${DOMAIN}_error")     %}
+# {{ ansible_managed }}
+# Apache configuration for {{ item.name }}
+
+<VirtualHost {{ apache2_tpl_listen }}>
+    Define HOST     {{ item.host | d(ansible_hostname) }}.
+    Define DOMAIN   {{ item.domain | d(ansible_domain) }}
+    Define EMAIL    {{ item.email | d("webmaster@"+ansible_domain) }}
+
+    ServerAdmin     ${EMAIL}
+    ServerName      ${HOST}${DOMAIN}
+{% if item.alias|d() %}
+    ServerAlias     {{ item.alias | join(" ") }}
+{% endif %}
+
+    CustomLog       ${APACHE_LOG_DIR}/{{ apache2_tpl_access_log }}.log combined
+    ErrorLog        ${APACHE_LOG_DIR}/{{ apache2_tpl_error_log }}.log
+
+{% if item.ssl|d(True) and item.redirect_to_ssl|d(True) %}
+    RedirectMatch   (.*) https://${HOST}${DOMAIN}$1
+{% else %}
+{% include "common.inc.j2" %}
+{% include "common_http.inc.j2" %}
+{% endif %}
+</VirtualHost>
+{% if item.ssl|d(True) %}
+
+<VirtualHost {{ apache2_tpl_listen_ssl }}>
+    Define HOST     {{ item.host | d(ansible_hostname) }}.
+    Define DOMAIN   {{ item.domain | d(ansible_domain) }}
+    Define EMAIL    {{ item.email | d("webmaster@"+ansible_domain) }}
+
+    ServerAdmin     ${EMAIL}
+    ServerName      ${HOST}${DOMAIN}
+{% if item.alias|d() %}
+    ServerAlias     {{ item.alias | join(" ") }}
+{% endif %}
+
+    CustomLog       ${APACHE_LOG_DIR}/{{ apache2_tpl_access_log }}.log combined
+    ErrorLog        ${APACHE_LOG_DIR}/{{ apache2_tpl_error_log }}.log
+
+{% include "ssl.inc.j2" %}
+
+
+{% include "common.inc.j2" %}
+{% include "common_https.inc.j2" %}
+</VirtualHost>
+{% endif %}

@@ -56,3 +56,8 @@ apache2_mods_disable: []
 
 # Apache2 default LogLevel
 apache2_log_level: 'warn'
+
+apache2_redirect_code: '307'
+apache2_redirect_code_ssl: '301'
+
+apache2_vhosts: []
