@@ -1,0 +1,11 @@
+# {{ ansible_managed }}
+
+SSLStaplingCache    shmcb:/tmp/stapling_cache(128000)
+
+SSLProtocol         {{ apache2_ssl_protocol }}
+SSLCipherSuite      {{ apache2_ssl_ciphers | join(":") }}
+SSLHonorCipherOrder on
+
+{% if apache2_ssl_hsts|d() %}
+Header add Strict-Transport-Security "max-age={{ apache2_ssl_hsts_age|d("15768000") }}"
+{% endif %}

@@ -3,6 +3,33 @@
 apache2_packages:
   - 'apache2'
 
+# Apache2 custom configuration templates to activate
+apache2_configs:
+  - 'msie.conf'
+  - 'other-vhosts-access-log.conf'
+  - 'security.conf'
+  - 'ssl.conf'
+
+# Apache2 SSL configuration
+# Define SSL Protocols
+apache2_ssl_protocol: 'All -SSLv2 -SSLv3'
+# Define SSL CipherSuite
+apache2_ssl_ciphers:
+  - 'ECDHE-RSA-AES256-SHA'
+  - 'DHE-RSA-AES256-SHA'
+  - 'AES256-SHA'
+  - 'ECDHE-RSA-AES128-SHA'
+  - 'DHE-RSA-AES128-SHA'
+  - 'AES128-SHA'
+
+# Apache2 Security configuration
+# ServerTokens: Full | OS | Minimal | Minor | Major | Prod
+apache2_server_tokens: 'Prod'
+# ServerSignature: On | Off | EMail
+apache2_server_signature: 'Off'
+# TraceEnable: On | Off | extended
+apache2_trace_enable: 'Off'
+
 apache2_mods_enable:
   - 'access_compat'
   - 'alias'
@@ -17,6 +44,7 @@ apache2_mods_enable:
   - 'dir'
   - 'env'
   - 'filter'
+  - 'headers'
   - 'mime'
   - 'mpm_event'
   - 'negotiation'

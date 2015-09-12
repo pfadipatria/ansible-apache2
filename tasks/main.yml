@@ -28,6 +28,16 @@
     group: 'root'
     mode: '0755'
 
+- name: Create custom configurations
+  template:
+    src: 'etc/apache2/conf.d/{{ item }}.j2'
+    dest: '/etc/apache2/conf.d/{{ item }}'
+    owner: 'root'
+    group: 'root'
+    mode: '0644'
+  with_items: apache2_configs
+  notify: [ 'Check apache2 and reload' ]
+
 - name: Get list of apache2 enabled mods
   shell: 'ls /etc/apache2/mods-enabled | cut -d. -f1 | uniq'
   register: apache2_register_enabled_mods
