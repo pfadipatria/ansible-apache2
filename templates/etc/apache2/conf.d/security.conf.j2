@@ -30,4 +30,9 @@ ServerSignature {{ apache2_server_signature|d("Off") }}
 # Allow TRACE method
 TraceEnable     {{ apache2_trace_enable|d("Off") }}
 
+<IfModule headers_module>
+    Header set X-Content-Type-Options: "nosniff"
+    Header set X-Frame-Options: "sameorigin"
+</IfModule>
+
 # vim: syntax=apache ts=4 sw=4 sts=4 sr noet
