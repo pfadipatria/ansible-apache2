@@ -14,19 +14,25 @@
 {% if item.ssl_dhparam|d() %}
     SSLOpenSSLConfCmd DHParameters {{ item.ssl_dhparam }}
 {% endif %}
-
-    SSLProtocol {{ apache2_tpl_ssl_protocol }}
-    SSLCipherSuite {{ apache2_tpl_ssl_ciphers }}
-    SSLHonorCipherOrder on
+{% if item.ssl_protocol|d() %}
+    SSLProtocol {{ item.ssl_protocol }}
+{% endif %}
+{% if item.ssl_ciphers|d() %}
+    SSLCipherSuite {{ item.ssl_ciphers }}
+{% endif %}
 
 {% if item.ssl_ca|d() %}
     SSLUseStapling on
 
 {% endif %}
 {% if item.ssl_hsts|d(True) %}
-    Header add Strict-Transport-Security "max-age={{ item.hsts_age | d("15768000") }}"
+    <IfModule headers_module>
+        Header add Strict-Transport-Security "max-age={{ item.hsts_age | d("15768000") }}"
+    </IfModule>
 
 {% endif %}
-    <If "%{HTTP_HOST} != '${HOST}${DOMAIN}'">
-        RedirectMatch (.*) https://${HOST}${DOMAIN}
-    </If>
+    <IfModule alias_module>
+        <If "%{HTTP_HOST} != '${HOST}${DOMAIN}'">
+            RedirectMatch (.*) https://${HOST}${DOMAIN}
+        </If>
+    </IfModule>

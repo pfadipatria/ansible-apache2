@@ -1,16 +1,20 @@
 {% if item.proxy_pass_ssl|d() %}
 
+    <IfModule proxy_module>
 {% for src, dest in item.proxy_pass_ssl.items() %}
-    ProxyPass {{ src }} {{ dest }}
+        ProxyPass {{ src }} {{ dest }}
 {% endfor %}
+    </IfModule>
 {% endif %}
 {% if item.redirect_ssl|d() %}
 
+    <IfModule alias_module>
 {% for redirect in item.redirect_ssl %}
 {% if redirect.regex|d() %}
-    Redirect {{ redirect.code|d(apache2_redirect_code) }} {{ redirect.src }} {{ redirect.dest }}
+        Redirect {{ redirect.code|d(apache2_redirect_code) }} {{ redirect.src }} {{ redirect.dest }}
 {% else %}
-    RedirectMatch {{ redirect.code|d(apache2_redirect_code) }} {{ redirect.src }} {{ redirect.dest }}
+        RedirectMatch {{ redirect.code|d(apache2_redirect_code) }} {{ redirect.src }} {{ redirect.dest }}
 {% endif %}
 {% endfor %}
+    </IfModule>
 {% endif %}
