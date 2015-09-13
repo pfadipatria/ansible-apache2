@@ -1,5 +1,28 @@
 # {{ ansible_managed }}
 
+<Directory />
+    Options FollowSymLinks
+    AllowOverride None
+    Require all denied
+</Directory>
+<Directory /usr/share>
+    AllowOverride None
+    Require all granted
+</Directory>
+<Directory /var/www/>
+    Options Indexes FollowSymLinks
+    AllowOverride None
+    Require all granted
+</Directory>
+<Directory /srv/>
+    Options Indexes FollowSymLinks
+    AllowOverride None
+    Require all granted
+</Directory>
+<FilesMatch "^\.ht">
+    Require all denied
+</FilesMatch>
+
 # ServerTokens
 ServerTokens    {{ apache2_server_tokens|d("Prod") }}
 ServerSignature {{ apache2_server_signature|d("Off") }}

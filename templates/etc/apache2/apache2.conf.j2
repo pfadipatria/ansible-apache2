@@ -12,29 +12,6 @@ Group ${APACHE_RUN_GROUP}
 HostnameLookups Off
 AccessFileName .htaccess
 
-<Directory />
-    Options FollowSymLinks
-    AllowOverride None
-    Require all denied
-</Directory>
-<Directory /usr/share>
-    AllowOverride None
-    Require all granted
-</Directory>
-<Directory /var/www/>
-    Options Indexes FollowSymLinks
-    AllowOverride None
-    Require all granted
-</Directory>
-#<Directory /srv/>
-#   Options Indexes FollowSymLinks
-#   AllowOverride None
-#   Require all granted
-#</Directory>
-<FilesMatch "^\.ht">
-    Require all denied
-</FilesMatch>
-
 ErrorLog ${APACHE_LOG_DIR}/error.log
 LogLevel {{ apache2_log_level }}
 
