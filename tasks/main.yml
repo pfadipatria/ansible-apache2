@@ -11,10 +11,19 @@
   command: dpkg-divert --quiet --local --divert /etc/apache2/apache2.conf.dpkg-divert
            --rename /etc/apache2/apache2.conf creates=/etc/apache2/apache2.conf.dpkg-divert
 
-- name: Create main apache2 configuration
+- name: Create apache2 main configuration
   template:
     src: 'etc/apache2/apache2.conf.j2'
     dest: '/etc/apache2/apache2.conf'
+    owner: 'root'
+    group: 'root'
+    mode: '0644'
+  notify: [ 'Check apache2 and reload' ]
+
+- name: Create apache2 ports configuration
+  template:
+    src: 'etc/apache2/ports.conf.j2'
+    dest: '/etc/apache2/ports.conf'
     owner: 'root'
     group: 'root'
     mode: '0644'
