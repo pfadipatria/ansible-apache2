@@ -1,0 +1,157 @@
+{#
+#   - item.name: ''
+#       Required. Name of the configuration, used for filename.
+#
+#   - item.type: ''
+#       Optional. Specify name of the template to use to generate apache2
+#       server configuration. Templates can extend other templates.
+#
+#   - item.host: ''
+#       Optional. Specify hostname of the server, default is ansible_hostname.
+#       item.host and item.domain specify the ServerName.
+#
+#   - item.domain: ''
+#       Optional. Specify domain of the server, default is ansible_domain.
+#       item.host and item.domain specify the ServerName.
+#
+#   - item.alias: []
+#       Optional. Specify additional aliases of the server. Example:
+#
+#         alias:
+#           - 'www.example.com'
+#           - 'web01.example.com'
+#
+#   - item.email: ''
+#       Optional: Specify server admin, default is 'webmaster@ansible_domain'.
+#
+#   - item.document_root: ''
+#       Optional: Specify DocumentRoot, default is '/var/www/${HOST}${DOMAIN}'.
+#
+#   - item.document_root_options: ''
+#       Optional: Set the Options in the Directory section of DocumentRoot,
+#       default is 'FollowSymLinks'.
+#
+#   - item.document_root_allow_override: ''
+#       Optional: Set the AllowOverride in the Directory section of DocumentRoot,
+#       default is 'all'.
+#
+#   - item.index: ''
+#       Optional. Specify directory index, like index.html.
+#
+#   - item.proxy_pass: []
+#       Optional. ProxyPass incoming requests on HTTP port to different
+#       address. Example:
+#
+#         proxy_pass:
+#           '/': 'http://localhost:8080/'
+#           '/admin/': 'http://localhost:8000/'
+#
+#   - item.proxy_pass_ssl: []
+#       Optional. ProxyPass incoming requests on HTTPS port to different
+#       address. Example:
+#
+#         proxy_pass_ssl:
+#           '/': 'http://localhost:8080/'
+#           '/admin/': 'http://localhost:8000/'
+#
+#   - item.redirect: []
+#       Optional. Redirect incoming requests on HTTP port to different address.
+#       Example:
+#
+#         redirect:
+#           - src: '^/$'
+#             dest: 'http://www.example.com/'
+#             code: 'permanent'
+#             regex: True
+#           - src: '/admin/'
+#             dest: 'https://www.example.com/admin/'
+#             code: 'temporary'
+#
+#   - item.redirect_ssl: []
+#       Optional. Redirect incoming requests on HTTPS port to different
+#       address. Example:
+#
+#         redirect_ssl:
+#           - src: '^/$'
+#             dest: 'http://www.example.com/'
+#             code: 'permanent'
+#             regex: True
+#           - src: '/admin/'
+#             dest: 'https://www.example.com/admin/'
+#             code: 'temporary'
+#
+#   - item.redirect_to_ssl: True/False
+#       Optional. If True, redirect connection from HTTP to HTTPS version of
+#       the site, default is true.
+#
+#   - item.ssl: True/False
+#       Optional. Enable or disable HTTPS for this server configuration (HTTPS
+#       is enabled by default for all servers, you can disable it selectively
+#       using this option).
+#
+#   - item.ssl_ca: ''
+#       Optional. Absolute path to CA SSL certificate to use.
+#
+#   - item.ssl_crt: ''
+#       Optional. Absolute path to custom SSL certificate to use, If not
+#       supplied '/etc/ssl/local/${HOST}${DOMAIN}.pem' will be used instead.
+#
+#   - item.ssl_key: ''
+#       Optional. Absolute path to custom SSL private key to use. If not
+#       supplied '/etc/ssl/local/${HOST}${DOMAIN}.key' will be used instead.
+#
+#   - item.ssl_dhparam: ''
+#       Optional. Absolute path to custom DHE parameters to use. If not
+#       supplied '/etc/ssl/local/dhparam.pem' will be used instead.
+#
+#   - item.ssl_protocol
+#       Optional. SSL Protocols to use.
+#
+#   - item.ssl_ciphers: ''
+#       Optional. Preferred server ciphers to use.
+#
+#   - item.keepalive: ''
+#       Optional. Set custom KeepAlive timeout for this server, in seconds.
+#
+#   - item.listen: []
+#       Optional. List of ports, IP addresses or sockets this server
+#       configuration should listen on for HTTP connections. By default set to
+#       '[::]:80' for all servers.
+#
+#   - item.listen_ssl: []
+#       Optional. List of ports, IP addresses or socnets this server
+#       configuration should listen on for HTTPS connections. By default set to
+#       '[::]:443' for all servers.
+#
+#   - item.access_log: ''
+#       Optional. Name of the access log file in the '/var/log/apache2/'
+#       directory. The suffix '.log' will be added automatically. If not
+#       specified, apache2 role will use '<item.host>.<item.domain>_access'
+#       by default.
+#
+#   - item.error_log: ''
+#       Optional. Name of the error log file in the '/var/log/apache2/'
+#       directory. The suffix '.log' will be added automatically. If not
+#       specified, apache2 role will use '<item.host>.<item.domain>_error'
+#       by default.
+#
+#   - item.error_pages: {}
+#       Optional. Dict of error codes in string format as keys and
+#       corresponding error pages to display. Example:
+#
+#         error_pages:
+#           '404': '/400.html'
+#           '502': '/500.html'
+#
+#   - item.hsts: True
+#       Optional. If this is set to True and SSL is enabled for this item, the
+#       Strict-Transport-Security header is set in the server's responses. If
+#       this is set to false, the Strict-Transport-Security header will not
+#       be set in the server's responses.
+#
+#   - item.hsts_age: '15768000'
+#       Optional. HTTP Strict-Transport-Security max age.
+#
+#   - item.ssl_use_stapling: True
+#       Optional. Use Online Certificate Status Protocol (OCSP).
+#}
