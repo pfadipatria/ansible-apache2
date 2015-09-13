@@ -21,9 +21,9 @@ LogFormat "%h %l %u %t \"%r\" %>s %O" common
 LogFormat "%{Referer}i -> %U" referer
 LogFormat "%{User-agent}i" agent
 
-IncludeOptional conf.d/*.conf
 IncludeOptional mods-enabled/*.load
 IncludeOptional mods-enabled/*.conf
+IncludeOptional conf.d/*.conf
 
 Include ports.conf
 IncludeOptional vhosts.d/*.conf
