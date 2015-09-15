@@ -1,7 +1,6 @@
 ---
 
-apache2_packages:
-  - 'apache2'
+apache2_packages_extra: []
 
 # Apache2 custom configuration templates to activate
 apache2_configs:
