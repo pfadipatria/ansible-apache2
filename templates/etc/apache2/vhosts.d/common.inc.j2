@@ -10,7 +10,7 @@
     DocumentRoot {{ apache2_tpl_document_root }}
 
     <Directory {{ apache2_tpl_document_root }}>
-        Options {{ item.document_root_options | default(['FollowSymLinks']) | join(" ") }}
+        Options {{ item.document_root_options | default(['Indexes', 'FollowSymLinks']) | join(" ") }}
         Require all granted
         AllowOverride {{ item.document_root_allow_override | default("all") }}
     </Directory>

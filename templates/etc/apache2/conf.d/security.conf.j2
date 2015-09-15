@@ -15,7 +15,7 @@
 
 # ServerTokens
 ServerTokens    {{ apache2_server_tokens|d("Prod") }}
-ServerSignature {{ apache2_server_signature|d("Off") }}
+ServerSignature {{ apache2_server_signature|d("On") }}
 
 # Allow TRACE method
 TraceEnable     {{ apache2_trace_enable|d("Off") }}
