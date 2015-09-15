@@ -14,6 +14,32 @@
         Require all granted
         AllowOverride {{ item.document_root_allow_override | default("all") }}
     </Directory>
+{% for section in item.section_list|d() %}
+
+    <{{ section.type }} "{{ section.location }}">
+{% if section.options|d() %}
+        Options {{ section.options | join(" ") }}
+{% endif %}
+{% if section.require_all|d() %}
+        Require all {{ section.require_all }}
+{% endif %}
+{% if section.allowoverride|d() %}
+        AllowOverride {{ section.allowoverride }}
+{% endif %}
+{% if section.addhandler|d() %}
+        <IfModule mime_module>
+{% for handler, extension in section.addhandler.items() %}
+            Addhandler {{ handler }} {{ extension }}
+{% endfor %}
+        </IfModule>
+{% endif %}
+{% if section.additional|d() %}
+{% for line in section.additional %}
+        {{ line }}
+{% endfor %}
+{% endif %}
+    </{{ section.type }}>
+{% endfor %}
 {% if item.error_pages|d() %}
 
 {% for error, page in item.error_pages.items() %}
