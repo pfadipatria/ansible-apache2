@@ -3,8 +3,8 @@
 <IfModule ssl_module>
     SSLStaplingCache    shmcb:/tmp/stapling_cache(128000)
 
-    SSLProtocol         {{ apache2_ssl_protocol }}
-    SSLCipherSuite      {{ apache2_ssl_ciphers | join(":") }}
+    SSLProtocol         {{ pki_protocols | join(" ") }}
+    SSLCipherSuite      {{ pki_ciphers | join(":") }}
     SSLHonorCipherOrder on
 {% if apache2_ssl_hsts|d() %}
 
@@ -15,8 +15,8 @@
 <IfModule mod_gnutls.c>
     SSLStaplingCache    shmcb:/tmp/stapling_cache(128000)
 
-    SSLProtocol         {{ apache2_ssl_protocol }}
-    SSLCipherSuite      {{ apache2_ssl_ciphers | join(":") }}
+    SSLProtocol         {{ pki_protocols | join(" ") }}
+    SSLCipherSuite      {{ pki_ciphers | join(":") }}
     SSLHonorCipherOrder on
 {% if apache2_ssl_hsts|d() %}
 
