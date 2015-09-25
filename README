@@ -147,14 +147,17 @@
 #           '404': '/400.html'
 #           '502': '/500.html'
 #
-#   - item.hsts: True
+#   - item.ssl_hsts: True
 #       Optional. If this is set to True and SSL is enabled for this item, the
 #       Strict-Transport-Security header is set in the server's responses. If
 #       this is set to false, the Strict-Transport-Security header will not
 #       be set in the server's responses.
 #
-#   - item.hsts_age: '15768000'
+#   - item.ssl_hsts_age: '15768000'
 #       Optional. HTTP Strict-Transport-Security max age.
+#
+#   - item.ssl_hsts_extra: ['includeSubDomains', 'preload']
+#       Optional. Enable addition HSTS options. To disable default, set to false.
 #
 #   - item.ssl_use_stapling: True
 #       Optional. Use Online Certificate Status Protocol (OCSP).
