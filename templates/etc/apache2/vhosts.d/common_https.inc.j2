@@ -1,9 +1,19 @@
 {% if item.proxy_pass_ssl|d() %}
 
     <IfModule proxy_module>
+        ProxyVia On
+        ProxyRequests Off
 {% for src, dest in item.proxy_pass_ssl.items() %}
         ProxyPass {{ src }} {{ dest }}
+        ProxyPassReverse {{ src }} {{ dest }}
 {% endfor %}
+        ProxyPreserveHost on
+        <Proxy *>
+            Options FollowSymLinks MultiViews
+            AllowOverride All
+            Order allow,deny
+            allow from all
+        </Proxy>
     </IfModule>
 {% endif %}
 {% if item.redirect_ssl|d() %}
