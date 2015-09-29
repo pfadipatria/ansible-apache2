@@ -45,7 +45,6 @@ apache2_mods_enable:
   - 'filter'
   - 'headers'
   - 'mime'
-  - 'mpm_event'
   - 'negotiation'
   - 'setenvif'
   - 'ssl'
