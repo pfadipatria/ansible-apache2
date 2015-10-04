@@ -35,6 +35,12 @@
 #       Optional: Set the AllowOverride in the Directory section of DocumentRoot,
 #       default is 'all'.
 #
+#   - item.document_root_add_handler: ()
+#       Optional. Adding special AddHandlers.
+#
+#   - item.document_root_additonal: ''
+#       Optional. Adding additional lines to the section directory DocumentRoot.
+#
 #   - item.index: ''
 #       Optional. Specify directory index, like index.html.
 #

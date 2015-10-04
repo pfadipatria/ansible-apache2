@@ -13,6 +13,18 @@
         Options {{ item.document_root_options | default(['Indexes', 'FollowSymLinks']) | join(" ") }}
         Require all granted
         AllowOverride {{ item.document_root_allow_override | default("all") }}
+{% if item.document_root_add_handler|d() %}
+        <IfModule mime_module>
+{% for handler, extension in item.document_root_add_handler.items() %}
+            Addhandler {{ handler }} {{ extension }}
+{% endfor %}
+        </IfModule>
+{% endif %}
+{% if item.document_root_additional|d() %}
+{% for line in item.document_root_additional %}
+        {{ line }}
+{% endfor %}
+{% endif %}
     </Directory>
 {% for section in item.section_list|d() %}
 
