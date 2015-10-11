@@ -28,7 +28,11 @@
     </Directory>
 {% for section in item.section_list|d() %}
 
+{% if section.type == "IfModule" %}
+    <IfModule {{ section.location }}>
+{% else %}
     <{{ section.type }} "{{ section.location }}">
+{% endif %}
 {% if section.options|d() %}
         Options {{ section.options | join(" ") }}
 {% endif %}
