@@ -90,6 +90,11 @@
 #       Optional. If True, redirect connection from HTTP to HTTPS version of
 #       the site, default is true.
 #
+#   - item.redirect_to_ssl_acme: True/False
+#       Optional. If True, redirect connection from HTTP to HTTPS would not
+#       be done, if requested URI is under the directory
+#       /.well-known/challenge/.
+#
 #   - item.ssl: True/False
 #       Optional. Enable or disable HTTPS for this server configuration (HTTPS
 #       is enabled by default for all servers, you can disable it selectively

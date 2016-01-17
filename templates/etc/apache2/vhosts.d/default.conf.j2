@@ -24,7 +24,11 @@
     ErrorLog        ${APACHE_LOG_DIR}/{{ apache2_tpl_error_log }}.log
 
 {% if item.ssl|d(True) and item.redirect_to_ssl|d(True) %}
-    RedirectMatch   (.*) https://${HOST}${DOMAIN}$1
+    RewriteEngine   On
+{% if item.acme_challenge|d(True) %}
+    RewriteCond     %{REQUEST_URI} !^/.well-known/acme-challenge/(.*)$
+{% endif %}
+    RewriteRule     ^(.*)$ https://%{SERVER_NAME}%{REQUEST_URI}
 {% else %}
 {% include "common.inc.j2" %}
 {% include "common_http.inc.j2" %}
