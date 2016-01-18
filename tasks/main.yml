@@ -63,7 +63,7 @@
   changed_when: false
 
 - name: Enable apache2 mods
-  shell: /usr/sbin/a2enmod --quiet {{ item }}
+  shell: '/usr/sbin/a2enmod --quiet {{ item }}'
   when: item is defined and item
   with_items: (((apache2_mods_enable|d([])) +
                 (apache2_mods_enable_group|d([])) +
