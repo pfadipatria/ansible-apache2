@@ -72,7 +72,7 @@
   notify: [ 'Check apache2 and reload' ]
 
 - name: Disable apache2 mods
-  shell: /usr/sbin/a2dismod --quiet {{ item }}
+  shell: '/usr/sbin/a2dismod --quiet {{ item }}'
   when: item is defined and item
   with_items: ((apache2_mods_disable|d([])) +
                (apache2_mods_disable_group|d([])) +
