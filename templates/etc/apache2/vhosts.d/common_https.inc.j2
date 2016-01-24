@@ -3,6 +3,9 @@
     <IfModule proxy_module>
         ProxyVia On
         ProxyRequests Off
+{% if item.proxy_pass_ssl_sslengine | d(False) %}
+        SSLProxyEngine On
+{% endif %}
 {% for src, dest in item.proxy_pass_ssl.items() %}
         ProxyPass {{ src }} {{ dest }}
         ProxyPassReverse {{ src }} {{ dest }}

@@ -60,6 +60,12 @@
 #           '/': 'http://localhost:8080/'
 #           '/admin/': 'http://localhost:8000/'
 #
+#   - item.proxy_pass_sslengine: True/False
+#       Optional: Use SSLProxyEngine for reverse proxy on HTTP. Default False
+#
+#   - item.proxy_pass_ssl_sslengine: True/False
+#       Optional: Use SSLProxyEngine for reverse proxy on HTTPS. Default False
+#
 #   - item.redirect: []
 #       Optional. Redirect incoming requests on HTTP port to different address.
 #       Example:
