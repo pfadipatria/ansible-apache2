@@ -49,6 +49,7 @@ apache2_mods_enable:
   - 'setenvif'
   - 'ssl'
   - 'status'
+  - 'rewrite'
 
 apache2_mods_disable: []
 
