@@ -1,5 +1,5 @@
-{% set apache2_tpl_ssl_certificate      = item.ssl_crt        | default("/etc/ssl/local/${HOST}${DOMAIN}.pem")          %}
-{% set apache2_tpl_ssl_certificate_key  = item.ssl_key        | default("/etc/ssl/local/${HOST}${DOMAIN}.key")          %}
+{% set apache2_tpl_ssl_certificate      = item.ssl_crt        | default("/etc/ssl/local/${HOST}${DOMAIN}/cert.pem")     %}
+{% set apache2_tpl_ssl_certificate_key  = item.ssl_key        | default("/etc/ssl/local/${HOST}${DOMAIN}/privkey.pem")  %}
 {% set apache2_tpl_ssl_protocol         = item.ssl_protocol   | default(apache2_ssl_protocol)                           %}
 {% set apache2_tpl_ssl_ciphers          = item.ssl_ciphers    | default(apache2_ssl_ciphers)               | join(":")  %}
 {% if item.ssl_hsts|d(True)                                                                                             %}
