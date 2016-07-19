@@ -54,7 +54,7 @@
     owner: 'root'
     group: 'root'
     mode: '0644'
-  with_items: apache2_configs
+  with_items: '{{ apache2_configs }}'
   notify: [ 'Check apache2 and reload' ]
 
 - name: Get list of apache2 enabled mods
@@ -98,6 +98,6 @@
     owner: 'root'
     group: 'root'
     mode: '0644'
-  with_items: apache2_vhosts
+  with_items: '{{ apache2_vhosts }}'
   when: apache2_vhosts is defined and apache2_vhosts
   notify: [ 'Check apache2 and reload' ]
