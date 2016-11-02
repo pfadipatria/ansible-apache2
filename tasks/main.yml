@@ -65,22 +65,22 @@
 - name: Enable apache2 mods
   shell: '/usr/sbin/a2enmod --quiet {{ item }}'
   when: item is defined and item
-  with_items: (((apache2_mods_enable|d([])) +
-                (apache2_mods_enable_group|d([])) +
-                (apache2_mods_enable_host|d([]))) |
-               difference(apache2_register_enabled_mods.stdout_lines))
+  with_items: '{{ (((apache2_mods_enable|d([])) +
+                    (apache2_mods_enable_group|d([])) +
+                    (apache2_mods_enable_host|d([]))) |
+                   difference(apache2_register_enabled_mods.stdout_lines)) }}'
   notify: [ 'Check apache2 and reload' ]
 
 - name: Disable apache2 mods
   shell: '/usr/sbin/a2dismod --quiet {{ item }}'
   when: item is defined and item
-  with_items: ((apache2_mods_disable|d([])) +
-               (apache2_mods_disable_group|d([])) +
-               (apache2_mods_disable_host|d([]))) |
-               difference(((apache2_mods_disable|d([])) +
-                           (apache2_mods_disable_group|d([])) +
-                           (apache2_mods_disable_host|d([]))) |
-                          difference(apache2_register_enabled_mods.stdout_lines))
+  with_items: '{{ ((apache2_mods_disable|d([])) +
+                   (apache2_mods_disable_group|d([])) +
+                   (apache2_mods_disable_host|d([]))) |
+                   difference(((apache2_mods_disable|d([])) +
+                               (apache2_mods_disable_group|d([])) +
+                               (apache2_mods_disable_host|d([]))) |
+                              difference(apache2_register_enabled_mods.stdout_lines)) }}'
   notify: [ 'Check apache2 and reload' ]
 
 - name: Create anonip.py
