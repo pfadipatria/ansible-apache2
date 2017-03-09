@@ -8,7 +8,7 @@
 <VirtualHost {{ apache2_tpl_listen }}>
     Define HOST     {{ item.host | d(ansible_hostname) }}.
     Define DOMAIN   {{ item.domain | d(ansible_domain) }}
-    Define EMAIL    {{ item.email | d("webmaster@"+ansible_domain) }}
+    Define EMAIL    {{ item.email | d(apache2_email) }}
 
     ServerAdmin     ${EMAIL}
     ServerName      ${HOST}${DOMAIN}
@@ -35,7 +35,7 @@
 <VirtualHost {{ apache2_tpl_listen_ssl }}>
     Define HOST     {{ item.host | d(ansible_hostname) }}.
     Define DOMAIN   {{ item.domain | d(ansible_domain) }}
-    Define EMAIL    {{ item.email | d("webmaster@"+ansible_domain) }}
+    Define EMAIL    {{ item.email | d(apache2_email) }}
 
     ServerAdmin     ${EMAIL}
     ServerName      ${HOST}${DOMAIN}

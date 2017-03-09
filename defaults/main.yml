@@ -63,3 +63,5 @@ apache2_redirect_code: '307'
 apache2_redirect_code_ssl: '301'
 
 apache2_vhosts: []
+
+apache2_email: "webmaster@{{ ansible_domain }}"
