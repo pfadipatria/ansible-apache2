@@ -3,7 +3,7 @@
 - name: Install apache2-related packages
   apt:
     name: '{{ item }}'
-    state: 'latest'
+    state: 'present'
     install_recommends: false
   when: item is defined and item
   with_items:
