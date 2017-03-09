@@ -15,22 +15,53 @@
 {% if item.alias|d() %}
     ServerAlias     {{ item.alias | join(" ") }}
 {% endif %}
+{% if apache2_well_known_redirect | d() %}
 
+    {{ apache2_well_known_redirect }}
 {% endif %}
+
+    CustomLog       ${APACHE_LOG_DIR}/{{ apache2_tpl_access_log }}.log combined
     ErrorLog        ${APACHE_LOG_DIR}/{{ apache2_tpl_error_log }}.log
 
 {% if item.ssl|d(True) and item.redirect_to_ssl|d(True) %}
+    Redirect / https://${HOST}${DOMAIN}/
+{% if item.acme_challenge|d(False) %}
     RewriteEngine   On
-{% if item.acme_challenge|d(True) %}
     RewriteCond     %{REQUEST_URI} !^/.well-known/acme-challenge/(.*)$
 {% endif %}
-    RewriteRule     ^(.*)$ https://%{SERVER_NAME}%{REQUEST_URI}
 {% else %}
 {% include "common.inc.j2" %}
 {% include "common_http.inc.j2" %}
 {% endif %}
 </VirtualHost>
 {% if item.ssl|d(True) %}
+{% if item.redirect_to_ssl|d(True) and item.alias|d() %}
+
+<VirtualHost {{ apache2_tpl_listen_ssl }}>
+    Define HOST     {{ item.host | d(ansible_hostname) }}.
+    Define DOMAIN   {{ item.domain | d(ansible_domain) }}
+    Define EMAIL    {{ item.email | d(apache2_email) }}
+
+    ServerAdmin     ${EMAIL}
+    ServerName      {{ item.alias[0] }}
+{% if item.alias[1:]|d() %}
+    {# Add all alias except the first #}
+    ServerAlias     {{ item.alias[1:] | join(" ") }}
+{% endif %}
+{% if apache2_well_known_redirect | d() %}
+
+    {{ apache2_well_known_redirect }}
+{% endif %}
+
+    Redirect / https://${HOST}${DOMAIN}/
+
+    CustomLog       ${APACHE_LOG_DIR}/{{ apache2_tpl_access_log }}.log combined
+    ErrorLog        ${APACHE_LOG_DIR}/{{ apache2_tpl_error_log }}.log
+
+{% include "ssl.inc.j2" %}
+
+</VirtualHost>
+{% endif %}
 
 <VirtualHost {{ apache2_tpl_listen_ssl }}>
     Define HOST     {{ item.host | d(ansible_hostname) }}.
@@ -39,11 +70,19 @@
 
     ServerAdmin     ${EMAIL}
     ServerName      ${HOST}${DOMAIN}
+{% if item.redirect_to_ssl|d(True) %}
+{# We redirected all aliases before #}
+{% else %}
 {% if item.alias|d() %}
     ServerAlias     {{ item.alias | join(" ") }}
 {% endif %}
-
 {% endif %}
+{% if apache2_well_known_redirect | d() %}
+
+    {{ apache2_well_known_redirect }}
+{% endif %}
+
+    CustomLog       ${APACHE_LOG_DIR}/{{ apache2_tpl_access_log }}.log combined
     ErrorLog        ${APACHE_LOG_DIR}/{{ apache2_tpl_error_log }}.log
 
 {% include "ssl.inc.j2" %}
@@ -53,3 +92,10 @@
 {% include "common_https.inc.j2" %}
 </VirtualHost>
 {% endif %}
+
+{% if item.alias|d() %}
+{% for line in item.alias[1:] %}
+# {{ line }}
+{% endfor %}
+{% endif %}
+

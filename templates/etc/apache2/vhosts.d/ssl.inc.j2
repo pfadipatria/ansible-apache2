@@ -37,8 +37,3 @@
     </IfModule>
 
 {% endif %}
-    <IfModule alias_module>
-        <If "%{HTTP_HOST} != '${HOST}${DOMAIN}'">
-            RedirectMatch (.*) https://${HOST}${DOMAIN}
-        </If>
-    </IfModule>
