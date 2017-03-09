@@ -1,3 +1,24 @@
+{% if item.ldap_auth_ssl | d(False) %}
+    # <IfModule authnz_ldap_module>
+    # <IfModule ldap_module>
+       <Location />
+           AuthType Basic
+           AuthBasicProvider ldap
+           AuthName "{{ item.ldap_auth_ssl_name }}"
+           AuthLDAPURL "{{ item.ldap_auth_ssl_url }}"
+           AuthLDAPBindDN {{ item.ldap_auth_ssl_bind }}
+           AuthLDAPBindPassword {{ item.ldap_auth_ssl_pass }}
+           AuthLDAPGroupAttribute member
+           AuthLDAPGroupAttributeIsDN on
+           # Require ldap-filter "(uid:caseExactMatch:=%{REMOTE_USER})"
+{% for entity, dn in item.ldap_auth_ssl_require.items() %}
+           Require {{ entity }} {{ dn }}
+{% endfor %}
+        </Location>
+    # </IfModule>
+    # </IfModule>
+{% endif %}
+
 {% if item.proxy_pass_ssl|d() %}
 
     <IfModule proxy_module>
