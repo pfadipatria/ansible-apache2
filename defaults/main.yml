@@ -11,7 +11,10 @@ apache2_configs:
 
 # Apache2 SSL configuration
 # Define SSL Protocols
-apache2_ssl_protocol: 'All -SSLv2 -SSLv3'
+apache2_ssl_protocol:
+  - 'All'
+  - '-SSLv2'
+  - '-SSLv3'
 # Define SSL CipherSuite
 apache2_ssl_ciphers:
   - 'ECDHE-RSA-AES256-SHA'
