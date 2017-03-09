@@ -152,10 +152,6 @@
 #       specified, apache2 role will use '<item.host>.<item.domain>_error'
 #       by default.
 #
-#   - item.anonip: True
-#       Optional. Enable/Disable use of anonip in access logs
-#       (https://privacyfoundation.ch/de/service/anonip.html).
-#
 #   - item.error_pages: {}
 #       Optional. Dict of error codes in string format as keys and
 #       corresponding error pages to display. Example:

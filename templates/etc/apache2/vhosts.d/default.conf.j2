@@ -16,10 +16,6 @@
     ServerAlias     {{ item.alias | join(" ") }}
 {% endif %}
 
-{% if item.anonip|d(True) %}
-    CustomLog       "|/usr/local/bin/anonip.py --output ${APACHE_LOG_DIR}/{{ apache2_tpl_access_log }}.log" combined
-{% else %}
-    CustomLog       ${APACHE_LOG_DIR}/{{ apache2_tpl_access_log }}.log combined
 {% endif %}
     ErrorLog        ${APACHE_LOG_DIR}/{{ apache2_tpl_error_log }}.log
 
@@ -47,10 +43,6 @@
     ServerAlias     {{ item.alias | join(" ") }}
 {% endif %}
 
-{% if item.anonip|d(True) %}
-    CustomLog       "|/usr/local/bin/anonip.py --output ${APACHE_LOG_DIR}/{{ apache2_tpl_access_log }}.log" combined
-{% else %}
-    CustomLog       ${APACHE_LOG_DIR}/{{ apache2_tpl_access_log }}.log combined
 {% endif %}
     ErrorLog        ${APACHE_LOG_DIR}/{{ apache2_tpl_error_log }}.log
 
