@@ -10,6 +10,10 @@
     Define DOMAIN   {{ item.domain | d(ansible_domain) }}
     Define EMAIL    {{ item.email | d(apache2_email) }}
 
+{% if item.itk_user %}
+    AssignUserID {{ item.itk_user }} {{ item.itk_group|default(item.itk_user) }}
+{% endif %}
+
     ServerAdmin     ${EMAIL}
     ServerName      ${HOST}${DOMAIN}
 {% if item.alias|d() %}

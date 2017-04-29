@@ -1,4 +1,8 @@
 ---
+- name: Add itk package to apache2 packages
+  set_fact:
+    apache2_packages_itk: 'apache2-mpm-itk'
+  when: apache2_itk_enabled
 
 - name: Install apache2-related packages
   apt:
@@ -8,6 +12,7 @@
   when: item is defined and item
   with_items:
     - 'apache2'
+    - '{{ apache2_packages_itk|d() }}'
     - '{{ apache2_packages_extra|d() }}'
 
 - name: Divert apache2.conf

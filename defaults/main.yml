@@ -1,5 +1,5 @@
 ---
-
+apache2_itk_enabled: False
 apache2_packages_extra: []
 
 # Apache2 custom configuration templates to activate

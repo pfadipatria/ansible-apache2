@@ -2,6 +2,12 @@
 #   - item.name: ''
 #       Required. Name of the configuration, used for filename.
 #
+#   - item.itk_user: ''
+#       Optional. Specify user the apache vhost will run as. Only for apache itk.
+#
+#   - item.itk_group: ''
+#       Optional. Specify group the apache vhost will run as. Only for apache itk.
+#
 #   - item.type: ''
 #       Optional. Specify name of the template to use to generate apache2
 #       server configuration. Templates can extend other templates.
