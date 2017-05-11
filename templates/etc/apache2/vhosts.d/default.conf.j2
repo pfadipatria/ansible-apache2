@@ -12,8 +12,8 @@
 
 {% if item.itk_user|d() %}
     AssignUserID {{ item.itk_user }} {{ item.itk_group|default(item.itk_user) }}
-{% endif %}
 
+{% endif %}
     ServerAdmin     ${EMAIL}
     ServerName      ${HOST}${DOMAIN}
 {% if item.alias|d() %}
