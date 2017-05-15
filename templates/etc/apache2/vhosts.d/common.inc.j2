@@ -62,3 +62,10 @@
     ErrorDocument {{ error }} {{ page }}
 {% endfor %}
 {% endif %}
+{% if item.additional|d() %}
+
+{% for line in item.additional %}
+    {{ line }}
+{% endfor %}
+
+{% endif %}

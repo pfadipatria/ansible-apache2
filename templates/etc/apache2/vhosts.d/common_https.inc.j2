@@ -38,6 +38,11 @@
             Order allow,deny
             allow from all
         </Proxy>
+{% if item.proxy_additional|d() %}
+{% for line in item.proxy_additional %}
+        {{ line }}
+{% endfor %}
+{% endif %}
     </IfModule>
 {% endif %}
 {% if item.redirect_ssl|d() %}
